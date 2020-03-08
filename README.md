@@ -1,3 +1,3 @@
-# Algoritmo A*
+# Laboratório de IA
 
-Implementação do algoritmo A estrala para a disciplina de laboratório de IA
+Implementação dos algoritmos para a disciplina de laboratório de IA
