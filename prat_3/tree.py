@@ -1,4 +1,3 @@
-import sys
 import math
 
 from node import Node
@@ -27,17 +26,19 @@ class Tree:
         :return: Sucesso ou falha na busca por esse nó.
         """
         # começamos pesquisando todos os nós do nó raiz
+        if root_node.get_name() == name:
+            return True
         child_nodes = root_node.get_child_nodes()
         for child_node in child_nodes:
             # encontrou
+            print(child_node.get_name())
             if child_node.get_name() == name:
                 return True
             # não encontrou na primeira profundidade porém tem filhos
             elif child_node.get_child_nodes():
-                return Tree.deep_search(child_node, name)
+                if Tree.deep_search(child_node, name):
+                    return True
             # é nó terminal, não sendo o que nós queremos e não tem filho
-            else:
-                continue
         return False
 
     def search_a_star(self, node: Node, destiny: str):
@@ -69,27 +70,3 @@ class Tree:
         # retirar o nó da borda
         self.edge.remove(node)
         self.search_a_star(priceless_node, destiny)
- """       
-    @staticmethod
-    def deep_search(root_node: Node, name: str) -> bool:
-        """
-        Método que realiza a busca em profundidade em uma árvore.
-        :param root_node: Nó raiz da árvore.
-        :param name: Nome do nó que queremos procurar.
-        :return: Sucesso ou falha na busca por esse nó.
-        """
-        if root_node.get_name() == name:
-            return True
-        child_nodes = root_node.get_child_nodes()
-        for child_node in child_nodes:
-            # encontrou
-            print(child_node.get_name())
-            if child_node.get_name() == name:
-                return True
-            # não encontrou na primeira profundidade porém tem filhos
-            elif child_node.get_child_nodes():
-                if Tree.deep_search(child_node, name):
-                    return True
-            # é nó terminal, não sendo o que nós queremos e não tem filho
-        return False
-"""
