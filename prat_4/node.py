@@ -49,6 +49,13 @@ class Node:
         """
         return self.child_nodes
 
+    def get_cost_function(self) -> int:
+        """
+        Retorna o valor total do custo f(n). Sendo este custo igual a f(n) = g(n) + h(n).
+        :return: Custo até o momento mais a heurística.
+        """
+        return self.get_cost() + self.get_heuristic()
+
     # Setters
     def set_child_node(self, node):
         """
