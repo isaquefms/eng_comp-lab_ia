@@ -53,6 +53,8 @@ class Tree:
         print('Distância em linha reta até Bucareste: {}'.format(node.get_heuristic()))
         print('Preço total: {}'.format(node.get_cost_function()))
 
+        if node.get_name() == self.root_node.get_name():
+            self.edge.append(node)
         # caso base, o no atual é o nó procurado
         if node.get_name() == destiny:
             return
@@ -64,7 +66,7 @@ class Tree:
         priceless_node: Node = None  # futuro nó mais barato
         # para cada nó na borda
         for edge_node in self.edge:
-            if edge_node.get_cost_function() < price:
+            if edge_node.get_cost_function() < price and edge_node != node:
                 priceless_node: Node = edge_node
                 price = edge_node.get_cost_function()
         # retirar o nó da borda
