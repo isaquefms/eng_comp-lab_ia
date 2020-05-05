@@ -1,66 +1,75 @@
 class Node:
+    """ Classe utilizada para representar um nó de uma árvore de procura. Para a prática 4 precisamos de uma pequena
+    alteração. Agora um nó contém também um estado que pode não ser informado. Esse nó irá armazenar o estado do jogo
+    da velha naquele momento. Vamos adicionar um método que retorna o estado do nó.
     """
-    Classe utilizada para representar um nó de uma árvore de procura.
-    """
-    def __init__(self, name: str, heuristic: int, cost: int = 0, child_nodes: list = None):
+    def __init__(self, state: dict, utility: int = 0, child_nodes: list = None):
         """
         Construtor do nó. Esses nós representam qualquer objeto da árvore que modelamos.
-        Inicialmente, ele será usado para modelar a procura do melhor caminho com o algoritmo A*.
-        :param name: Nome da cidade que será atribuída ao nó.
-        :param heuristic: Distância em linha reta da cidade atual até a cidade objetivo.
-        :param cost: Custo para alcançar o nó. Distância do nó anterior para o atual.
-        :param child_nodes: Nós filhos do nó atual
+        O nó atualmente representa um estado do jogo da velha. Modelagem necessária para a prática 4.
+        Args:
+            state: Estado que o nó representa no jogo da velha.
+            utility: Avaliação desse estado de acordo com o jogo. Será definido via algoritmo maxmin.
+            child_nodes: Nós filhos do nó atual.
         """
-        self.name = name
-        self.heuristic: int = heuristic
-        self.cost: int = cost
-        self.child_nodes: list = []
+        self.state = state
+        self.utility = utility
         # iterando sobre os nós filhos passados, caso eles existam
         if child_nodes:
             for node in child_nodes:
                 self.child_nodes.append(node)
+        else:
+            self.child_nodes = child_nodes
 
     # Getters
-    def get_heuristic(self) -> int:
+    def get_state(self) -> dict:
         """
-        Retorna a distância em linha reta da cidade atual para a cidade de Bucareste.
-        :return: Distância em linha reta para a cidade de Bucareste
+        Retorna o estado do nó atual.
+        Returns: Dicionário com os valores dos estados atuais.
         """
-        return self.heuristic
+        return self.state
 
-    def get_cost(self) -> int:
+    def get_utility(self) -> int:
         """
-        Retorna o valor do custo para se alcançar a cidade até o momento.
-        :return: Custo para se chegar a cidade.
+        Retorna o valor de utilidade do estado atual.
+        Returns: Inteiro representando o valor de utilidade do estado atual.
         """
-        return self.cost
-
-    def get_name(self) -> str:
-        """
-        Retorna o nome da cidade que foi atribuído ao nó.
-        :return: Nome da cidade que foi atribuída ao nó.
-        """
-        return self.name
+        return self.utility
 
     def get_child_nodes(self) -> list:
         """
         Lista dos nós filhos do nó atual. Caso essa lista exista.
-        :return: Nós filhos do atual nó.
+        Returns: Nós filhos do atual nó.
         """
         return self.child_nodes
 
-    def get_cost_function(self) -> int:
-        """
-        Retorna o valor total do custo f(n). Sendo este custo igual a f(n) = g(n) + h(n).
-        :return: Custo até o momento mais a heurística.
-        """
-        return self.get_cost() + self.get_heuristic()
-
     # Setters
-    def set_child_node(self, node):
+    def set_child_node(self, node) -> None:
         """
         Atribui um novo nó a lista de nós filhos.
-        :param node: Nó filho.
-        :return: None
+        Args:
+            node: No filho que será adicionado.
+
+        Returns: None
         """
         self.child_nodes.append(node)
+
+    def set_state(self, state: dict) -> None:
+        """
+        Atribui um valor ao estado do nó.
+        Args:
+            state: Estado do jogo da velha.
+
+        Returns: None
+        """
+        self.state = state
+
+    def set_utility(self, utility: int) -> None:
+        """
+        Atribui um valor de utilidade ao nó atual.
+        Args:
+            utility: Inteiro representando a utilidade do nó e ao mesmo tempo do estado também.
+
+        Returns: None
+        """
+        self.utility = utility
