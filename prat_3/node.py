@@ -35,6 +35,9 @@ class Node:
         """
         return self.cost
 
+    def update_cost(self, father_cost: int):
+        self.cost += father_cost
+
     def get_name(self) -> str:
         """
         Retorna o nome da cidade que foi atribuído ao nó.

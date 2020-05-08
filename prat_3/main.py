@@ -4,14 +4,14 @@ from tree import Tree
 
 def test():
     # criando os nós
-    arad = Node(name='Arad', heuristic=360, cost=0)
+    arad = Node(name='Arad', heuristic=366, cost=0)
     timisoara = Node(name='Timisoara', heuristic=329, cost=118)
     lugoj = Node(name='Lugoj', heuristic=244, cost=111)
     mehadia = Node(name='Mehadia', heuristic=241, cost=70)
     dobreta = Node(name='Dobreta', heuristic=242, cost=75)
-    craiova = Node(name='Craiova', heuristic=160, cost=120)  # possui dois pais
-    pitesti_from_craiova = Node(name='Pitesti', heuristic=10, cost=138)  # possui dois pais
-    pitesti_from_rimnu_vilcea = Node(name='Pitesti', heuristic=10, cost=97)
+    craiova = Node(name='Craiova', heuristic=160, cost=120)
+    pitesti_from_craiova = Node(name='Pitesti', heuristic=100, cost=138)  # possui dois pais
+    pitesti_from_rimnu_vilcea = Node(name='Pitesti', heuristic=100, cost=97)  # possui dois pais
     bucharest_from_fagaras = Node(name='Bucharest', heuristic=0, cost=211)
     bucharest_from_pitesti = Node(name='Bucharest', heuristic=0, cost=101)
     fagaras = Node(name='Fagaras', heuristic=176, cost=99)

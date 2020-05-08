@@ -52,14 +52,17 @@ class Tree:
         print('Preço real para se chegar ate aqui: {}'.format(node.get_cost()))
         print('Distância em linha reta até Bucareste: {}'.format(node.get_heuristic()))
         print('Preço total: {}'.format(node.get_cost_function()))
-
         if node.get_name() == self.root_node.get_name():
             self.edge.append(node)
+
         # caso base, o no atual é o nó procurado
         if node.get_name() == destiny:
             return
         # atualizar a borda
         for child_node in node.get_child_nodes():
+            # passando o custo do pai para cada um dos filhos
+            child_node.update_cost(node.get_cost())
+            # adicionando os filhos na borda
             self.edge.append(child_node)
         # procura pelo nó mais barato para expandir
         price: float = math.inf  # nesse caso atribuímos a price um valor infinito
