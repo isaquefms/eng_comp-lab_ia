@@ -16,7 +16,34 @@ class Tree:
             root_node: Nó pai, ou primeiro nível na hierarquia da árvore.
         """
         self.root_node = root_node
-        self.root_node.state = Node.initial_state()
+        self.root_node.set_state(Node.initial_state())
+
+    def mount_all_possibilites_tree(self, initial_caracter: str = 'x') -> None:
+        """
+        Método que monta a árvore com todas as possibilidades do jogo da velha. Para a montagem ele utiliza o próprio
+        pai dos nós como referência.
+        Args:
+            initial_caracter: Caracter inicial.
+        Returns: None
+        """
+        # avaliação dos estados iniciais passados como parâmetro
+        if initial_caracter == 'x':
+            second_caracter = 'o'
+        elif initial_caracter == 'o':
+            second_caracter = 'x'
+        # caso haja alguma coisa fora do padrão, voltamos ao padrão
+        else:
+            initial_caracter = 'x'
+            second_caracter = 'o'
+        # define o estado do pai como referência
+        reference_state = self.root_node.get_state()
+        # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
+        for line in range(4):
+            for column in range(4):
+                key = int('{}{}'.format(line, column))
+                # se na determinada posição avaliada não houver marcações
+                if reference_state[key] == '':
+                    # adicionamos uma marcação
 
     def deep_search(self, root_node: Node, search_state: dict) -> bool:
         """

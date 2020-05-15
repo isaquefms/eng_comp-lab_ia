@@ -20,6 +20,7 @@ class Node:
                 self.child_nodes.append(node)
         else:
             self.child_nodes = child_nodes
+        self.calculate_utility()  # calcula o valor de utilidade do nó (condição de vitória e derrota)
 
     # Getters
     def get_state(self) -> dict:
