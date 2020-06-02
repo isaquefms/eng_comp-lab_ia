@@ -4,14 +4,15 @@ from .node import Node
 
 
 class Tree:
-    """
-    Classe responsável por fazer a representação da árvore no nosso problema do algoritmo minmax.
+    """Classe responsável por fazer a representação da árvore no nosso problema
+    do algoritmo minmax.
     """
 
     def __init__(self, root_node: Node):
         """
-        Construtor da classe. Quando criamos uma árvore do jogo, o nó raiz é o nó que contém o estado inicial, onde
-        todos os seus campos são com valores iguais a string vazia.
+        Construtor da classe. Quando criamos uma árvore do jogo, o nó raiz é o
+        nó que contém o estado inicial, onde todos os seus campos são com
+        valores iguais a string vazia.
         Args:
             root_node: Nó pai, ou primeiro nível na hierarquia da árvore.
         """
@@ -20,8 +21,8 @@ class Tree:
 
     def mount_all_possibilites_tree(self, initial_caracter: str = 'x') -> None:
         """
-        Método que monta a árvore com todas as possibilidades do jogo da velha. Para a montagem ele utiliza o próprio
-        pai dos nós como referência.
+        Método que monta a árvore com todas as possibilidades do jogo da velha.
+        Para a montagem ele utiliza o próprio pai dos nós como referência.
         Args:
             initial_caracter: Caracter inicial.
         Returns: None
@@ -35,15 +36,34 @@ class Tree:
         else:
             initial_caracter = 'x'
             second_caracter = 'o'
-        # define o estado do pai como referência
-        reference_state = self.root_node.get_state()
-        # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
-        for line in range(4):
-            for column in range(4):
-                key = int('{}{}'.format(line, column))
-                # se na determinada posição avaliada não houver marcações
-                if reference_state[key] == '':
-                    # adicionamos uma marcação
+        # define a profundidade da iteração atual
+        depth: int = 0  # 0 profundidade inicial e 9 profundidade final
+        # fila de possibilidades a serem tratadas
+        queue: List[dict] = []
+        # adicionamos a raiz na fila
+        queue.append(self.root_node)
+        # enquanto a fila não estiver vazia
+        while queue != []:
+            father = queue.pop(0) # obtemos o primeiro nó da fila
+            # se chegarmos a maior profundidade, já montamos todas as possibilidades
+            if depth == 9:
+                return
+            # se não for o último objeto montados os seus filhos com base nele
+            father_state: dict = father.get_state() # estado do pai
+            child_nodes List[Node] = [] # lista que armazenará os filhos
+            # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
+            for line in range(4):
+                for column in range(4):
+                    key = int(f'{line}{column}')
+                    # se na determinada posição avaliada não houver marcações
+                    if father_state[key] == '':
+                        # adicionamos uma marcação
+                        child_state = father_state
+                        child_state[key] = initial_caracter
+                        child = Node(child_state)
+                        child_nodes.append(child)
+                        queue.append(child)
+                        father.set_child_node(child)
 
     def deep_search(self, root_node: Node, search_state: dict) -> bool:
         """
