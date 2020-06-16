@@ -1,0 +1,4 @@
+# Eliminando arquivos indesejados no projeto
+.idea/
+__pycache__/
+*.pyc
