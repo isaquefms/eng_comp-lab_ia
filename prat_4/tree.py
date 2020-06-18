@@ -1,7 +1,6 @@
 import math
-from .node import Node
-# from node import Node
-
+from node import Node
+from typing import List
 
 class Tree:
     """Classe responsável por fazer a representação da árvore no nosso problema
@@ -18,6 +17,7 @@ class Tree:
         """
         self.root_node = root_node
         self.root_node.set_state(Node.initial_state())
+        self.mount_all_possibilites_tree()  # montando todas as possibilidades da nossa árvore
 
     def mount_all_possibilites_tree(self, initial_caracter: str = 'x') -> None:
         """
@@ -50,7 +50,7 @@ class Tree:
                 return
             # se não for o último objeto montados os seus filhos com base nele
             father_state: dict = father.get_state() # estado do pai
-            child_nodes List[Node] = [] # lista que armazenará os filhos
+            child_nodes: List[Node] = [] # lista que armazenará os filhos
             # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
             for line in range(4):
                 for column in range(4):
