@@ -19,7 +19,7 @@ class Node:
             for node in child_nodes:
                 self.child_nodes.append(node)
         else:
-            self.child_nodes = child_nodes
+            self.child_nodes = []
         self.calculate_utility()  # calcula o valor de utilidade do nó (condição de vitória e derrota)
 
     # Getters
@@ -86,7 +86,7 @@ class Node:
         """
         for line in range(1, 4):
             for column in range(1, 4):
-                key = int('{}{}'.forma(line, column))
+                key = f'{line}{column}'
                 # caso os elementos de mesma chave sejam diferentes
                 if self.state[key] != other_state[key]:
                     return False  # já aceleramos o processo retornando falso na operação
@@ -112,59 +112,59 @@ class Node:
             min_char = 'o'
         # teste das oito condições de vitória ou derrota
         # primeira condição
-        if self.state[11] == max_char and self.state[12] == max_char and self.state[13] == max_char:
+        if self.state['11'] == max_char and self.state['12'] == max_char and self.state['13'] == max_char:
             self.utility = 1
             return
-        elif self.state[11] == min_char and self.state[12] == min_char and self.state[13] == min_char:
+        elif self.state['11'] == min_char and self.state['12'] == min_char and self.state['13'] == min_char:
             self.utility = -1
             return
         # segunda condição
-        elif self.state[21] == max_char and self.state[22] == max_char and self.state[23] == max_char:
+        elif self.state['21'] == max_char and self.state['22'] == max_char and self.state['23'] == max_char:
             self.utility = 1
             return
-        elif self.state[21] == min_char and self.state[22] == min_char and self.state[23] == min_char:
+        elif self.state['21'] == min_char and self.state['22'] == min_char and self.state['23'] == min_char:
             self.utility = -1
             return
         # terceira condição
-        elif self.state[31] == max_char and self.state[32] == max_char and self.state[33] == max_char:
+        elif self.state['31'] == max_char and self.state['32'] == max_char and self.state['33'] == max_char:
             self.utility = 1
             return
-        elif self.state[31] == min_char and self.state[32] == min_char and self.state[33] == min_char:
+        elif self.state['31'] == min_char and self.state['32'] == min_char and self.state['33'] == min_char:
             self.utility = -1
             return
         # quarta condição
-        elif self.state[11] == max_char and self.state[21] == max_char and self.state[31] == max_char:
+        elif self.state['11'] == max_char and self.state['21'] == max_char and self.state['31'] == max_char:
             self.utility = 1
             return
-        elif self.state[11] == min_char and self.state[21] == min_char and self.state[31] == min_char:
+        elif self.state['11'] == min_char and self.state['21'] == min_char and self.state['31'] == min_char:
             self.utility = -1
             return
         # quinta condição
-        elif self.state[12] == max_char and self.state[22] == max_char and self.state[32] == max_char:
+        elif self.state['12'] == max_char and self.state['22'] == max_char and self.state['32'] == max_char:
             self.utility = 1
             return
-        elif self.state[12] == min_char and self.state[22] == min_char and self.state[32] == min_char:
+        elif self.state['12'] == min_char and self.state['22'] == min_char and self.state['32'] == min_char:
             self.utility = -1
             return
         # sexta condição
-        elif self.state[13] == max_char and self.state[23] == max_char and self.state[33] == max_char:
+        elif self.state['13'] == max_char and self.state['23'] == max_char and self.state['33'] == max_char:
             self.utility = 1
             return
-        elif self.state[13] == min_char and self.state[23] == min_char and self.state[33] == min_char:
+        elif self.state['13'] == min_char and self.state['23'] == min_char and self.state['33'] == min_char:
             self.utility = -1
             return
         # sétima condição
-        elif self.state[11] == max_char and self.state[22] == max_char and self.state[33] == max_char:
+        elif self.state['11'] == max_char and self.state['22'] == max_char and self.state['33'] == max_char:
             self.utility = 1
             return
-        elif self.state[11] == min_char and self.state[22] == min_char and self.state[33] == min_char:
+        elif self.state['11'] == min_char and self.state['22'] == min_char and self.state['33'] == min_char:
             self.utility = -1
             return
         # oitava condição
-        elif self.state[31] == max_char and self.state[22] == max_char and self.state[13] == max_char:
+        elif self.state['31'] == max_char and self.state['22'] == max_char and self.state['13'] == max_char:
             self.utility = 1
             return
-        elif self.state[31] == min_char and self.state[22] == min_char and self.state[13] == min_char:
+        elif self.state['31'] == min_char and self.state['22'] == min_char and self.state['13'] == min_char:
             self.utility = -1
             return
         # se caso nenhuma das condições de vitória forem satisfeitas logos temos 0 utilidade ou um empate
@@ -182,6 +182,6 @@ class Node:
         return_dict: dict = {}
         for line in range(1, 4):
             for column in range(1, 4):
-                key = int('{}{}'.format(line, column))  # chave do dicionário será a string representante da posição
+                key = f'{line}{column}'  # chave do dicionário será a string representante da posição
                 return_dict[key] = ''  # todas as posições do dicionário serão preenchidas com uma string vazia
         return return_dict

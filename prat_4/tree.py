@@ -52,9 +52,9 @@ class Tree:
             father_state: dict = father.get_state() # estado do pai
             child_nodes: List[Node] = [] # lista que armazenará os filhos
             # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
-            for line in range(4):
-                for column in range(4):
-                    key = int(f'{line}{column}')
+            for line in range(1, 4):
+                for column in range(1, 4):
+                    key = f'{line}{column}'
                     # se na determinada posição avaliada não houver marcações
                     if father_state[key] == '':
                         # adicionamos uma marcação
