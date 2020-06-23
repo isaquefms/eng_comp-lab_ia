@@ -39,7 +39,7 @@ class Tree:
         # define a profundidade da iteração atual
         depth: int = 0  # 0 profundidade inicial e 9 profundidade final
         # fila de possibilidades a serem tratadas
-        queue: List[dict] = []
+        queue: List[Node] = []
         # adicionamos a raiz na fila
         queue.append(self.root_node)
         # enquanto a fila não estiver vazia
@@ -51,6 +51,8 @@ class Tree:
             # se não for o último objeto montados os seus filhos com base nele
             father_state: dict = father.get_state() # estado do pai
             child_nodes: List[Node] = [] # lista que armazenará os filhos
+            # precisamos alternar agora entre os caracteres de marcação
+            # Fixme: precimos corrigir aqui, não estamos alternando entre os caracteres
             # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
             for line in range(1, 4):
                 for column in range(1, 4):
@@ -64,6 +66,25 @@ class Tree:
                         child_nodes.append(child)
                         queue.append(child)
                         father.set_child_node(child)
+                        # adicionamos um nível de profundidade
+                        depth += 1
+
+    def view_tree(self) -> None:
+        """
+        Exibe todos os nós da árvore.
+        Returns: None
+        """
+        # armazena os nós que precisamos visitar
+        queue: List[Nodes] = []
+        queue.append(self.root_node)
+        # enquanto houver elementos a fila
+        while queue != []:
+            # mostramos o elemento atual
+            current_state = queue.pop(0)
+            print(current_state.get_state())
+            # adicionamos os filhos na fila de exibição.
+            for child in current_state.get_child_nodes():
+                queue.append(child)
 
     def deep_search(self, root_node: Node, search_state: dict) -> bool:
         """
