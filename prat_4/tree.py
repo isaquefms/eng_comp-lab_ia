@@ -36,6 +36,9 @@ class Tree:
         else:
             initial_caracter = 'x'
             second_caracter = 'o'
+        # variável para alternar os caracteres do jogo da velha
+        change: bool = True
+        caracter: str = initial_caracter
         # define a profundidade da iteração atual
         depth: int = 0  # 0 profundidade inicial e 9 profundidade final
         # fila de possibilidades a serem tratadas
@@ -44,6 +47,7 @@ class Tree:
         queue.append(self.root_node)
         # enquanto a fila não estiver vazia
         while queue != []:
+            print(queue)
             father = queue.pop(0) # obtemos o primeiro nó da fila
             # se chegarmos a maior profundidade, já montamos todas as possibilidades
             if depth == 9:
@@ -51,8 +55,13 @@ class Tree:
             # se não for o último objeto montados os seus filhos com base nele
             father_state: dict = father.get_state() # estado do pai
             child_nodes: List[Node] = [] # lista que armazenará os filhos
-            # precisamos alternar agora entre os caracteres de marcação
-            # Fixme: precimos corrigir aqui, não estamos alternando entre os caracteres
+            # alternando o caracter
+            if change:
+                caracter = initial_caracter
+                change = not change
+            else:
+                caracter = second_caracter
+                change = not change
             # para cada campo não preenchido, ele adiciona o campo e envia o mesmo a um nó filho
             for line in range(1, 4):
                 for column in range(1, 4):
@@ -66,8 +75,8 @@ class Tree:
                         child_nodes.append(child)
                         queue.append(child)
                         father.set_child_node(child)
-                        # adicionamos um nível de profundidade
-                        depth += 1
+            # adicionamos um nível de profundidade
+            depth += 1
 
     def view_tree(self) -> None:
         """
