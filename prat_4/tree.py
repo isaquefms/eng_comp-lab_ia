@@ -47,7 +47,6 @@ class Tree:
         queue.append(self.root_node)
         # enquanto a fila não estiver vazia
         while queue != []:
-            print(queue)
             father = queue.pop(0) # obtemos o primeiro nó da fila
             # se chegarmos a maior profundidade, já montamos todas as possibilidades
             if depth == 9:
@@ -69,8 +68,8 @@ class Tree:
                     # se na determinada posição avaliada não houver marcações
                     if father_state[key] == '':
                         # adicionamos uma marcação
-                        child_state = father_state
-                        child_state[key] = initial_caracter
+                        child_state = father_state.copy()
+                        child_state[key] = caracter
                         child = Node(child_state)
                         child_nodes.append(child)
                         queue.append(child)
