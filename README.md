@@ -10,3 +10,8 @@ No diretório onde se encontram os arquivos do projeto, execute:
 ```bash
 python main.py
 ```
+
+## Sumário
+
+`prat_3`: Busca em profundidade e A*
+`prat_4`: Algoritmo minmax
