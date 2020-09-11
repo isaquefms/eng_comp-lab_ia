@@ -1,0 +1,6 @@
+projectKey=eng_comp-lab_ia
+serverUrl=http://localhost:9000
+serverVersion=8.4.2.36762
+dashboardUrl=http://localhost:9000/dashboard?id=eng_comp-lab_ia
+ceTaskId=AXR33tUE1ZF9T0G-zxYk
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXR33tUE1ZF9T0G-zxYk
