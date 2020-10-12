@@ -46,14 +46,14 @@ def prepare_d(X: pd.DataFrame) -> np.array:
 
 	Returns: Matriz com a representação das classes.
 	"""
-	D: np.array = np.array([])
+	D: list[np.array] = []	
 	for _, element in enumerate(X):
-		if element == 'Iris-Setosa':
-			D = np.append(D, [0, 0, 1])
-		elif element == 'Iris-Versicolour':
-			D = np.append(D, [0, 1, 0])
+		if element == 'Iris-setosa':
+			D.append(np.array([0, 0, 1]).reshape((3, 1)))
+		elif element == 'Iris-versicolor':
+			D.append(np.array([0, 1, 0]).reshape((3, 1)))
 		elif element == 'Iris-virginica':
-			D = np.append(D, [1, 0, 0])
+			D.append(np.array([1, 0, 0]).reshape((3, 1)))
 	return D
 
 
@@ -75,10 +75,10 @@ def perceptron(max_it: int, alpha: float, X: np.array, D: np.array) -> np.array:
 
 	t: int = 1  # contador de iterações
 	E: float = 1  # erro global
-	e: list[float] = np.array([], dtype=float)  # erro por instância
+	e: list[np.array] = []  # erro por instância
 	ve: list[np.array] = []  # vetor de erros
 
-	y: np.array = []  # vetor de saída
+	y: list[np.array] = []  # vetor de saída
 
 	# como na leitura do csv temos uma instância em cada linha, preciamos transpor X
 	# X = X.T
@@ -87,21 +87,43 @@ def perceptron(max_it: int, alpha: float, X: np.array, D: np.array) -> np.array:
 	while t < max_it and E > 0:
 		E = 0
 		for index, value in enumerate(X):
+			value = value.reshape((4, 1))
 			# obentenção da saída prevista de acordo com os pessos da entrada
-			y.append(activation_function(W.dot(value.T) + b))
+			y.append(activation_function(W.dot(value) + b))
 			# cálculo do erro de predição
-			e = np.append(e, [D[index] - y[index]])
+			e.append(np.array(D[index] - y[index], dtype=float))
 			# atualização da matrix de pesos
-			W = W + (alpha * (e[index].dot(value)))
+			W = W + (alpha * (e[index].dot(value.T)))
 			# atualização do bias
 			b = b + (alpha * e[index])
 			# atualização do erro global
 			E = E + sum(e[index])
-			# adicionando o vetor de erros atual no vetor de históricos
-			ve.append(e[index])
+			# adicionando o erro no vetor de erros
+			ve.append(E)
 		t += 1
 
-	return W
+	return W, b, ve
+
+
+def accuracy(W: np.array, b: bp.array, X: np.array, D: np.array) -> float:
+	"""Realiza a predĩção e calcula a acurácia da rede neural treinada.
+
+	Args:
+		W: Matriz de pesos para as entradas dos neurônios.
+		b: Vetor de bias dos neurônios.
+		X: Dados usados para prever o modelo treinado.
+		D: Classificação original da entrada X.
+
+	Returns: Acurácia do modelo treinado.
+	"""
+	y: list[np.array] = []
+
+	for index, value in enumerate(X):
+		value = value.reshape((4, 1))
+		# obtenção da saída prevista de acordo com os valores
+		y.append(activation_function(W.dot(value) + b)
+
+
 
 def main() -> None:
 	"""Executa o código criado.
@@ -117,9 +139,11 @@ def main() -> None:
 	X = dataset.drop(4, 1)
 	X = X.drop(0, 0)
 	# calculando o algoritmo e obtendo W
-	W = perceptron(300, 0.3, X.to_numpy(dtype=float), D)
+	W, b, ve = perceptron(2, 0.3, X.to_numpy(dtype=float), D)
 	# exibindo
 	print(f'Valor de W: {W}')
+	print(f"Valores dos bias: {b}")
+	# print(f"Vetor de erros: {ve}")
 
 
 # Execução do código
