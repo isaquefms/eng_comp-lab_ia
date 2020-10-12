@@ -46,15 +46,14 @@ def prepare_d(X: pd.DataFrame) -> np.array:
 
 	Returns: Matriz com a representação das classes.
 	"""
-	D: list[list[int]] = []
+	D: np.array = np.array([])
 	for _, element in enumerate(X):
 		if element == 'Iris-Setosa':
-			D.append([0, 0, 1])
+			D = np.append(D, [0, 0, 1])
 		elif element == 'Iris-Versicolour':
-			D.append([0, 1, 0])
+			D = np.append(D, [0, 1, 0])
 		elif element == 'Iris-virginica':
-			D.append([1, 0, 0])
-	D = np.array(D)
+			D = np.append(D, [1, 0, 0])
 	return D
 
 
@@ -71,12 +70,12 @@ def perceptron(max_it: int, alpha: float, X: np.array, D: np.array) -> np.array:
 	Returns: Matriz W com os valores de treino.
 	"""
 	# inicializando as matrizes de peso e bias
-	W: np.array = np.array([0.1, 0.2, 0.2, 0.4, 0.5, 0.4, 0.4, 0.6, 0.7, 0.4, 0.1, 0.2]).reshape((3, 4))  # peso de cada entrada para o neurônio
-	b: np.array = np.array([1, 1, 1]).reshape((3, 1))  # bias do neurônio
+	W: np.array = np.array([0.1, 0.2, 0.2, 0.4, 0.5, 0.4, 0.4, 0.6, 0.7, 0.4, 0.1, 0.2], dtype=float).reshape((3, 4))  # peso de cada entrada para o neurônio
+	b: np.array = np.array([1, 1, 1], dtype=float).reshape((3, 1))  # bias do neurônio
 
 	t: int = 1  # contador de iterações
 	E: float = 1  # erro global
-	e: list[float] = []  # erro por instância
+	e: list[float] = np.array([], dtype=float)  # erro por instância
 	ve: list[np.array] = []  # vetor de erros
 
 	y: np.array = []  # vetor de saída
@@ -91,9 +90,9 @@ def perceptron(max_it: int, alpha: float, X: np.array, D: np.array) -> np.array:
 			# obentenção da saída prevista de acordo com os pessos da entrada
 			y.append(activation_function(W.dot(value.T) + b))
 			# cálculo do erro de predição
-			e.append(D[index] - y[index])
+			e = np.append(e, [D[index] - y[index]])
 			# atualização da matrix de pesos
-			W = W + (alpha * e[index].dot(value))
+			W = W + (alpha * (e[index].dot(value)))
 			# atualização do bias
 			b = b + (alpha * e[index])
 			# atualização do erro global
@@ -111,14 +110,14 @@ def main() -> None:
 	"""
 
 	# lendo o arquivo csv
-	dataset = pd.read_csv('data/iris_data.csv')
+	dataset = pd.read_csv('data/iris_data.csv', header=None)
 	# preparando os dados de D
-	D = prepare_d(dataset['species'])
+	D = prepare_d(dataset[4])
 	# preparando os dados de X
-	X = dataset.drop('species', 1)
+	X = dataset.drop(4, 1)
 	X = X.drop(0, 0)
 	# calculando o algoritmo e obtendo W
-	W = perceptron(300, 0.3, X, D)
+	W = perceptron(300, 0.3, X.to_numpy(dtype=float), D)
 	# exibindo
 	print(f'Valor de W: {W}')
 
