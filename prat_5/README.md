@@ -27,3 +27,12 @@ aos valores previstos, gerando um ajuste com base no neurônio de maior represen
 uma acurácia significativamente maior que quando comparado com a função degrau. Essa por sua vez, possui
 um ajuste muito bruto após um determinado limiar, em nosso caso o 0, fazendo com que os valores previstos
 fossem bem mais determinísticos.
+
+## Instruções de Execução
+
+Abra o terminal com o `python 3` instalado em sua máquina e execute os seguintes comandos:
+
+``` bash
+pip3 install -r requirements.txt
+python main.py
+```
