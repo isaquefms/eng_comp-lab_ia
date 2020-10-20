@@ -173,7 +173,7 @@ def main() -> None:
 	X = dataset.drop(4, 1)
 	X = X.drop(0, 0)
 	# calculando o algoritmo e obtendo W
-	W, b, ve, time_error = perceptron(300, 0.1, X.to_numpy(dtype=float), D, function)
+	W, b, ve, time_error = perceptron(300, 0.3, X.to_numpy(dtype=float), D, function)
 	# com os valores de W e b calculados vamos substituir X e D
 	D = prepare_d(test_dataset[4])
 	X = test_dataset.drop(4, 1)
