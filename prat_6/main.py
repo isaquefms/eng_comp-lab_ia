@@ -1,7 +1,7 @@
 import math
 import random
 
-from typing import List
+from typing import List, Tuple
 
 
 def funcao_objetivo(x: float, y: float) -> float:
@@ -73,32 +73,72 @@ def seleciona_pai(populacao: List[List[float]], num_sorteado: int) -> List[float
 	Returns: Elemento sorteado.
 	"""
 	soma_relativa: int = 0
-	for index, individuo in enumerate(populacao):
+	for indice, individuo in enumerate(populacao):
 		# soma relativa é igual ao intervalo da aptidão do indicíduo
 		soma_relativa += individuo[2]
 		# caso o número sorteado seja menor ou igual a soma relativa
 		# podemos retornar o individuo atual
 		if num_sorteado <= soma_relativa:
 			return individuo
+	# caso nenhum número seja retornado anteriormente, retornamos o último
+	return populacao[-1]
 
+
+def cruzamento(pai_1: List[float], pai_2: List[float], taxa_de_cruzamento: float) -> Tuple[List[float], List[float]]:
+	"""Realiza o cruzamento entre os pais passados como parâmetro
+	levando em conta a taxa de cruzamento.
+
+	Args:
+		pai_1: Primeiro indivíduo pai.
+		pai_2: Segundo indivíduo pai.
+		taxa_de_cruzamento: Valor que informa a taxa de cruzamento.
+		Valor entre 0 e 1.
+
+	Returns: Indivíduos filhos gerados pelo cruzamento.
+	"""
+	# definimos um número aleatório para definirmos se iremos ter
+	# cruzamento ou não
+	num_aleat = random.uniform(0, 1.0)
+	filho_1: List[float] = []
+	filho_2: List[float] = []
+	# há cruzamento
+	if num_aleat <= taxa_de_cruzamento:
+		# filho 1, x do pai 1 e y do pai 2
+		filho_1.append(pai_1[0])
+		filho_1.append(pai_2[1])
+		# filho 2, x do pai 2 e y do pai 1
+		filho_2.append(pai_2[0])
+		filho_2.append(pai_1[1])
+	# se não houver cruzamento
+	else:
+		# filho 1 é igual ao pai 1
+		filho_1.append(pai_1[0])
+		filho_1.append(pai_1[1])
+		# filho 2 é igual ao pái 2
+		filho_2.append(pai_2[0])
+		filho_2.append(pai_2[1])
+	return filho_1, filho_2
 
 def main():
 	p = cria_populacao(3)
 	p_final = avalia_populacao(p)
+	print(p_final)
 	x1 = random.randint(1, 100)
 	x2 = random.randint(1, 100)
-	x3 = random.randint(1, 100)
-	x4 = random.randint(1, 100)
-	x5 = random.randint(1, 100)
-	x6 = random.randint(1, 100)
-	print(seleciona_pai(p_final, x1))
-	print(seleciona_pai(p_final, x2))
-	print(seleciona_pai(p_final, x3))
-	print(seleciona_pai(p_final, x4))
-	print(seleciona_pai(p_final, x5))
-	print(seleciona_pai(p_final, x6))
-	# print(funcao_objetivo(-8.46, 6.87))
-	# print(funcao_objetivo(-7.19, 7.76))
+	# x3 = random.randint(1, 100)
+	# x4 = random.randint(1, 100)
+	# x5 = random.randint(1, 100)
+	# x6 = random.randint(1, 100)
+	pai_1 = seleciona_pai(p_final, x1)
+	pai_2 = seleciona_pai(p_final, x2)
+	# print(seleciona_pai(p_final, x3))
+	# print(seleciona_pai(p_final, x4))
+	# print(seleciona_pai(p_final, x5))
+	# print(seleciona_pai(p_final, x6))
+	# print(funcao_objetivo(-4.30, -1.58))
+	# print(funcao_objetivo(2.39, -5.65))
+	# print(funcao_objetivo(6.56, -7.34))
+	print(cruzamento(pai_1, pai_2, 1.0))
 	pass
 
 
