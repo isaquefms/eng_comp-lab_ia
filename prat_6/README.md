@@ -10,7 +10,9 @@ O programa pode ou não receber argumentos a partir de sua execução na linha d
 #### Resultados obtidos
 ##### Desempenho do algoritmo x Geração
 ![desempenho_ag](imgs/ev_ag_5.png)
+
 O gráfico acima mostra o desempenho por geração do algoritmo, quando executado com os seguintes parâmetros:
+
 - Tamanho da população: 20
 - Taxa de crossover: 0.7
 - Taxa de mutação: 0.1
