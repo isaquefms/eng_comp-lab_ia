@@ -2,6 +2,12 @@
 ## Algoritmos Genéticos
 ### Alunos: Isaque Fernando e Daniel Santana
 
+#### Requisitos
+``` bash
+sudo apt install python3-tk
+pip3 install -r requirements.txt
+```
+
 #### Para executar o programa
 O programa pode ou não receber argumentos a partir de sua execução na linha de comando.
 - Caso não sejam passados argumentos, o algoritmo irá rodar com os seguintes valores padrão: população de tamanho 20, taxa de crossover de 70%, taxa de mutação de 10% e máximo de 20 gerações.
@@ -18,7 +24,7 @@ O gráfico acima mostra o desempenho por geração do algoritmo, quando executad
 - Taxa de mutação: 0.1
 - Máx. gerações: 20
 
-Os tracejados vermelho, verde e azul indicam, respectivamente, os resultados do melhor e pior indivíduo, e a média dos resultados daquela geração.
+Os tracejados vermelho, verde e azul indicam, respectivamente, os resultados do pior e melhor indivíduo, e a média dos resultados daquela geração.
 Podemos perceber que os valores tendem a se convergir para um resultado final bastante rapidamente no início, e com uma atenuação a partir da décima geração, aproximadamente.
 
 O resultado obtido com esta execução foi -87.3059, no ponto (-7.820313759195462, -3.1697637513062373)
