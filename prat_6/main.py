@@ -119,6 +119,42 @@ def cruzamento(pai_1: List[float], pai_2: List[float], taxa_de_cruzamento: float
 		filho_2.append(pai_2[1])
 	return filho_1, filho_2
 
+
+def mutacao(filho: List[float], taxa_de_mutacao: float) -> List[float]:
+	"""Realiza a mutação de um filho a partir de uma determinada faixa.
+
+	Args:
+		filho: Indivíduo que irá passar pela mutação.
+		taxa_de_mutacao: Número de ponto flutuante que informa a taxa
+		de indivíduos que serão mutádos.
+
+	Returns: Indivíduo resultante.
+	"""
+	filho_mutado: List[float] = []
+	# número aleatório para avaliar se o indivíduo será mutado
+	num_aleat = random.uniform(0, 1)
+	# variável para selecionar qual elemento vamos mutar
+	mutar_x: bool = False
+	# se for mutado
+	if num_aleat <= taxa_de_mutacao:
+		if mutar_x:
+			# muta o gene x
+			filho_mutado.append(filho[0] + 0.2)
+			filho_mutado.append(filho[1])
+			# na próxima irá mutar y
+			mutar_x = not mutar_x
+		else:
+			# muta o gene y
+			filho_mutado.append(filho[0])
+			filho_mutado.append(filho[1] - 0.3)
+			# na próxima irá mutar x
+			mutar_x = not mutar_x
+	else:
+		filho_mutado.append(filho[0])
+		filho_mutado.append(filho[1])
+	return filho_mutado
+
+
 def main():
 	p = cria_populacao(3)
 	p_final = avalia_populacao(p)
